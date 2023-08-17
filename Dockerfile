@@ -13,13 +13,15 @@ ENV GONOPROXY="https://gitlab.iblog.pro/*"
 
 
 RUN go mod download
-RUN go build -o /app/goshop ./cmd
+RUN go build -o /app/cli ./cmd/cli.go
+RUN go build -o /app/goshop ./cmd/goshop.go
 
 FROM harbor.iblog.pro/test/alpine:main.scratch.3.18.stage.4
 #FROM scratch
 
 WORKDIR /app
 COPY --from=builder /app/goshop /app/goshop
+COPY --from=builder /app/cli /app/cli
 COPY ./config/config.sample.yaml ./config/config.yaml
 
 EXPOSE 8888
