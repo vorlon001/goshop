@@ -1,5 +1,40 @@
 version: "3.8"
 services:
+
+  goshopclientgrpc:
+    image: "goshop-clientgrpc:v1"
+    restart: always
+    ports:
+      - "28082:18082"
+    environment:
+      port: 8888
+      auth_secret: auth_secret
+      database_uri: postgres://goshop:goshopsecret@postgres:5432/goshop
+      redis_uri: redis:6379
+      redis_db: 0
+      goshopgrpc: goshopgrpc
+
+    depends_on:
+      - postgres
+
+  goshopgrpc:
+    image: "goshop-servergrpc:v1"
+    restart: always
+    ports:
+      - "28080:18080"
+      - "28081:18081"
+    environment:
+      port: 8888
+      auth_secret: auth_secret
+      database_uri: postgres://goshop:goshopsecret@postgres:5432/goshop
+      redis_uri: redis:6379
+      redis_db: 0
+
+    depends_on:
+      - postgres
+      - redis
+
+
   goshop:
     build:
       context: .
