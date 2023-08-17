@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/quangdangfit/gocommon/logger"
-	"github.com/quangdangfit/gocommon/redis"
+//	"github.com/quangdangfit/gocommon/redis"
 	"github.com/quangdangfit/gocommon/validation"
 
 	"goshop/internal/app/serializers"
@@ -17,13 +17,13 @@ import (
 
 type ProductAPI struct {
 	validator validation.Validation
-	cache     redis.IRedis
+//	cache     redis.IRedis
 	service   services.IProductService
 }
 
 func NewProductAPI(
 	validator validation.Validation,
-	cache redis.IRedis,
+//	cache redis.IRedis,
 	service services.IProductService,
 ) *ProductAPI {
 	return &ProductAPI{

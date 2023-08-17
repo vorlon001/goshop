@@ -1,4 +1,10 @@
 #!/usr/bin/bash
 
-go build -o bin/cli ./cmd/cli.go
-go build -o bin/goshop ./cmd/goshop.go
+#go mod tidy
+
+go build -o ./bin/clientgrpc ./cmd/client.go
+go build -o ./bin/servergrpc ./cmd/server.go
+
+
+docker build -t goshop-clientgrpc:v1 -f ./Dockerfile.clientgrpc .
+docker build -t goshop-servergrpc:v1 -f ./Dockerfile.servergrpc .
